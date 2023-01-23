@@ -66,6 +66,8 @@
                                 <a class="dropdown-item text-white" href="{{ url('admin/projects') }}">{{__('Projects')}}</a>
                                 <a class="dropdown-item text-white" href="{{ url('admin/types') }}">{{__('Types')}}</a>
                                 <a class="dropdown-item text-white" href="{{ url('admin/technologies') }}">{{__('Technologies')}}</a>
+                                {{-- <a class="dropdown-item text-white" href="http://127.0.0.1:5174">{{__('Front-End Page')}}</a> --}}
+
                                 <a class="dropdown-item text-white" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                     {{ __('Logout') }}
