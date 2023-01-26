@@ -29,7 +29,7 @@ class ProjectController extends Controller
             // dd($request->all());
             $projects = Project::where("title", "like", "%$request->project_search_title%")->get();
         }
-        
+
         $types = Type::all();
         return view("admin.projects.index", compact("projects", "types"));
     }
@@ -68,7 +68,7 @@ class ProjectController extends Controller
         $project = Project::create($data);
         // dd($project);
 
-        if($request->has("technologies")){
+        if ($request->has("technologies")) {
             $project->technologies()->attach($request->technologies);
         }
 
@@ -113,22 +113,21 @@ class ProjectController extends Controller
         $data = $request->validated();
         $data["slug"] = Project::generateSlug($data["title"]);
 
-        if ($request->hasFile("cover_image")){
-            if($project->cover_image) Storage::delete("project_images", $request->cover_image);
+        if ($request->hasFile("cover_image")) {
+            if ($project->cover_image) Storage::delete("project_images", $request->cover_image);
             $path = Storage::put("project_images", $request->cover_image);
             $data["cover_image"] = $path;
         }
 
         $project->update($data);
 
-        if($request->has("technologies")){
+        if ($request->has("technologies")) {
             $project->technologies()->sync($request->technologies);
         } else {
             $project->technologies()->detach();
         }
 
-        return redirect()->route("admin.projects.index")->with("message","$project->title has been successfully edited." );
-
+        return redirect()->route("admin.projects.index")->with("message", "$project->title has been successfully edited.");
     }
 
     /**
