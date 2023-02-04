@@ -23,8 +23,10 @@ class ProjectController extends Controller
      */
     public function index(Request $request)
     {
+
+
         if (count($request->all()) === 0) {
-            $projects = Project::all();
+            $projects = Project::all()->where("user_id", Auth::user()->id);
         } elseif ($request->has("project_search_title")) {
             // dd($request->all());
             $projects = Project::where("title", "like", "%$request->project_search_title%")->get();
